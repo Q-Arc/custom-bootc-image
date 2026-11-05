@@ -1,0 +1,16 @@
+FROM quay.io/fedora/fedora-bootc:45
+
+RUN dnf group install -y container-management workstation-product virtualization development-tools c-development 
+
+RUN dnf group install -y fonts gnome-desktop
+
+RUN dnf group install -y --with-optional libreoffice
+
+RUN dnf remove -y nano-default-editor
+
+RUN dnf -y install \
+    btop nano flatpak \
+    vim-default-editor && \
+    dnf clean all
+
+RUN bootc container lint
